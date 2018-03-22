@@ -41,7 +41,9 @@ public class RobotProcessor {
         }
 
         for (ICommand command : executionCommands) {
-            command.execute(robot);
+            if (command != null) {
+                command.execute(robot);
+            }
         }
     }
 
