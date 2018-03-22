@@ -44,11 +44,12 @@ public final class RobotUtils {
     }
 
     /**
+     * Move the robot.
      *
-     * @param currentCoordinates
-     * @param direction
-     * @param stepNumber
-     * @return
+     * @param currentCoordinates current coordinates.
+     * @param direction current direction.
+     * @param stepNumber step number.
+     * @return the updated coordinates.
      */
     public static Coordinate2D move(Coordinate2D currentCoordinates, CardinalDirectionEnum direction, int stepNumber){
 

@@ -2,7 +2,9 @@ package com.tma.solutions;
 
 import com.tma.solutions.dimension.SurfaceTable;
 import com.tma.solutions.robot.Robot;
+import com.tma.solutions.services.RobotProcessor;
 import com.tma.solutions.utils.InputUtils;
+import com.tma.solutions.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,13 +16,35 @@ import java.util.List;
  */
 public class Application {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        String filePath = "C:\\Users\\User\\Documents\\My Documents\\TMA Projects\\commands.txt";
-        List<String> inputFromFile = InputUtils.collectInputFromFile(filePath);
-        Robot robot = new Robot(new SurfaceTable(5,5));
-        robot.run(inputFromFile);
+        String filePath = args[0];
+
+        int topRightX = 5, topRightY = 5;
+
+        if (args.length == 3) {
+            if (StringUtils.isNumeric(args[1])) {
+                topRightX = Integer.parseInt(args[1]);
+            }
+
+            if (StringUtils.isNumeric(args[2])) {
+                topRightY = Integer.parseInt(args[2]);
+            }
+        }
+
+        try {
+            List<String> commandInputs = InputUtils.collectInputFromFile(filePath);
+
+            SurfaceTable testTable = new SurfaceTable(topRightX, topRightY);
+            Robot robot = new Robot(testTable);
+
+            RobotProcessor robotProcessor = new RobotProcessor();
+            robotProcessor.process(robot, commandInputs);
+        } catch (IOException ioException) {
+            System.out.println("Cannot read file from " + filePath + ": " + ioException.getMessage());
+        } catch (RuntimeException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
-
 
 }

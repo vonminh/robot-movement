@@ -1,5 +1,7 @@
 package com.tma.solutions.dimension;
 
+import java.util.Objects;
+
 /**
  * Coordinate in 2D declaration.
  *
@@ -53,5 +55,19 @@ public class Coordinate2D {
 
     public int getyVal() {
         return yVal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate2D that = (Coordinate2D) o;
+        return xVal == that.xVal &&
+                yVal == that.yVal;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(xVal, yVal);
     }
 }

@@ -8,13 +8,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Utility class for inputting.
+ *
+ * @author vnminh
+ */
 public final class InputUtils {
 
     /**
      * Cannot instantiate.
      */
-    private InputUtils() {}
+    private InputUtils() {
+    }
 
+    /**
+     * Collects input data from file path.
+     *
+     * @param filePath must be valid string.
+     * @return List<String> commands.
+     * @throws IOException if any error occurs.
+     */
     public static List<String> collectInputFromFile(String filePath) throws IOException {
 
         List<String> inputs;
@@ -22,7 +35,7 @@ public final class InputUtils {
         try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             inputs = stream
                     .map(String::trim)
-                    .filter(StringUtils::isNotNullOrEmpty)
+                    .filter(StringUtils::isNotNullAndNotEmpty)
                     .map(String::toUpperCase)
                     .collect(Collectors.toList());
         }
